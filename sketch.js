@@ -2,17 +2,17 @@ var Ball, database;
 var position;
 
 function setup() {
-    
+    database = firebase.database();
     console.log(database);
     createCanvas(500, 500);
-
     Ball = createSprite(250, 250, 10, 10);
-    Ball.shapeColor= "red";
-    
+    Ball.shapeColor = "red";
+    var BallPosition = database.ref("bola/posicao");
+    BallPosition.on("value", readPosition, showError);
 }
 
 function draw() {
-    background(230);
+    background("white");
     if (keyDown(LEFT_ARROW)) {
         writePosition(-1, 0);
     } else if (keyDown(RIGHT_ARROW)) {
